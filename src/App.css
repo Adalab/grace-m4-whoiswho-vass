@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+.center-parents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  margin-left: 180px;
+}
+.perfil {
+  display: flex;
+  width: 300px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name {
+  margin-left: 10px;
+}
+.initechNode {
+  border: solid 3px rgb(191, 191, 191);
+  border-radius: 48%;
+  padding: 5px;
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+}
+
+#initechOrgChart .orgNodeChildGroup .nodeGroupLineVerticalMiddle {
+  border-right: solid 3px grey;
+}
+
+#initechOrgChart .nodeLineBorderTop {
+  border-top: solid 2px grey;
+}
+
+.img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.rayita {
+  width: 3px;
+  height: 30px;
+  background-color: grey;
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.children {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#initechOrgChart.children {
+  margin-left: 205px;
+}
+.reactOrgChart .nodeLineBorderTop {
+  border-top: solid 2px grey;
+}
+
+.nodeGroupCell .children {
+  margin-left: 55px;
+}
+td[colspan][colspan="0"] .children {
+  width: 300px;
+  margin: auto;
+  background-color: blueviolet;
+  margin-left: 625px;
+}
