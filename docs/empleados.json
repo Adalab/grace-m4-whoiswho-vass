@@ -1,0 +1,71 @@
+{
+  "Empleados": [
+    {
+      "ID_Empleado": "1",
+      "nombre_Empleado": "Alejandro",
+      "apellidos_Empleado": "Montes Guerra",
+      "correo_Empleado": "aMontes@gmail.com",
+      "numero_Empleado": "1234567",
+      "puesto_Empleado": " Programador ",
+      "foto_empleado": "fotoalejandro",
+      "ID_superior": ""
+    },
+
+    {
+      "ID_Empleado": "2",
+      "nombre_Empleado": "Miguel",
+      "apellidos_Empleado": "Castillejo Garcia",
+      "correo_Empleado": "mCastillejo@gmail.com",
+      "numero_Empleado": "2345678",
+      "puesto_Empleado": " Maquetador ",
+      "foto_empleado": "fotoMiguel",
+      "ID_superior": "1"
+    },
+
+    {
+      "ID_Empleado": "3",
+      "nombre_Empleado": "Ana",
+      "apellido_Empleado": "Mata Carvajal",
+      "correo_Empleado": "aMata@gmail.com",
+      "numero_Empleado": "2345678",
+      "foto_empleado": "fotoAna",
+      "puesto_Empleado": " Maquetador ",
+      "ID_superior": "1"
+    },
+
+    {
+      "ID_Empleado": "4",
+      "nombre_Empleado": "Sara",
+      "apellido_Empleado": "Gracia Hernandez",
+      "correo_Empleado": "sGracia@gmail.com",
+      "numero_Empleado": "7654321",
+      "foto_empleado": "fotoSara",
+      "puesto_Empleado": " RRHH ",
+      "ID_superior": "2"
+    },
+
+
+    {
+      "ID_Empleado": "5",
+      "nombre_Empleado": "Diego",
+      "apellidos_Empleado": "Lazaro Mendez",
+      "correo_Empleado": "dLazaro@gmail.com",
+      "numero_Empleado": "3456789",
+      "puesto_Empleado": " Analista ",
+      "foto_empleado": "fotoDiego",
+      "ID_superior": "2"
+
+    },
+
+    {
+      "ID_Empleado": "6",
+      "nombre_Empleado": "Sergio",
+      "apellido_Empleado": "Guzman Marin",
+      "correo_Empleado": "sGuzman@gmail.com",
+      "numero_Empleado": "8765432",
+      "puesto_Empleado": "Seguridad",
+      "foto_empleado": "fotoSergio",
+      "ID_superior": "5"
+    }
+  ]
+}
