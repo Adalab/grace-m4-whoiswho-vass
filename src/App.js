@@ -145,6 +145,13 @@ class App extends React.Component {
   }
 
   render() {
+    const getClass = id => {
+      console.log(id);
+
+      if (id === this.state.id) {
+        return "color";
+      }
+    };
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="employee">
@@ -166,7 +173,7 @@ class App extends React.Component {
 
     const MyNodeComponentChildren = ({ node }) => {
       return (
-        <div className="employee__children">
+        <div className={`employee__children ${getClass(node.id_empleado)}`}>
           <div
             className="employee__img--container"
             onClick={this.consolea}
