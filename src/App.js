@@ -114,7 +114,7 @@ class App extends React.Component {
 
   consolea(ev) {
     let idSelected = ev.currentTarget.dataset.id;
-    this.getData(idSelected);
+    this.getData2(idSelected);
   }
 
   render() {

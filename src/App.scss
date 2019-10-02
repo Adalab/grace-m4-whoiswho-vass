@@ -5,7 +5,7 @@ body {
 
 .employee {
   display: flex;
-  width: 300px;
+  width: 350px;
   flex-direction: row;
   align-items: center;
   & p {
@@ -88,7 +88,7 @@ body {
 }
 
 .reactOrgChart table td.nodeCell .color {
-  width: 300px;
+  width: 400px;
   position: relative;
   left: 20%;
 
