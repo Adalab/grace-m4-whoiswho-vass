@@ -15,40 +15,52 @@ class App extends React.Component {
       parent: []
     };
     this.getData = this.getData.bind(this);
+    this.getAllData = this.getAllData.bind(this);
     this.getValue = this.getValue.bind(this);
     this.consolea = this.consolea.bind(this);
+  }
+
+  getAllData() {
+    fetch("https://adalab-whoiswho.azurewebsites.net/api/employees")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      });
   }
 
   getData(id) {
     fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({
           nombre_empleado: data.nombre_empleado + data.apellidos_empleado,
           id: data.id_empleado
         });
-        return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
+        return fetch(
+          `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
+        )
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             this.setState({
               parent: [
                 {
-                  nombre_empleado: data.nombre_empleado + data.apellidos_empleado,
+                  nombre_empleado:
+                    data.nombre_empleado + data.apellidos_empleado,
                   id: data.id_empleado,
                   foto_empleado: foto
                 }
               ]
             });
             if (data.id_superior !== "") {
-              return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
+              return fetch(
+                `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
+              )
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
                   const spread = [
                     {
-                      nombre_empleado: data.nombre_empleado + data.apellidos_empleado,
+                      nombre_empleado:
+                        data.nombre_empleado + data.apellidos_empleado,
                       id: data.id_empleado,
                       foto_empleado: foto
                     },
@@ -78,7 +90,11 @@ class App extends React.Component {
       return (
         <div className="perfil">
           <div className="initechNode">
-            <img src={node.foto_empleado} className="img" alt={node.nombre_empleado}></img>
+            <img
+              src={node.foto_empleado}
+              className="img"
+              alt={node.nombre_empleado}
+            ></img>
           </div>
           <p className="name">{node.nombre_empleado}</p>
         </div>
@@ -88,8 +104,16 @@ class App extends React.Component {
     const MyNodeComponentChildren = ({ node }) => {
       return (
         <div className="children">
-          <div className="initechNode" onClick={this.consolea} data-id={node.id}>
-            <img src={node.foto_empleado} className="img" alt={node.nombre_empleado}></img>
+          <div
+            className="initechNode"
+            onClick={this.consolea}
+            data-id={node.id}
+          >
+            <img
+              src={node.foto_empleado}
+              className="img"
+              alt={node.nombre_empleado}
+            ></img>
           </div>
           <p className="name">{node.nombre_empleado}</p>
         </div>
