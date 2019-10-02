@@ -9,7 +9,7 @@ class App extends React.Component {
     super();
     this.state = {
       nombre_empleado: "",
-      id: "",
+      id: 0,
       foto_empleado: foto,
       children: [],
       parent: []
@@ -70,8 +70,14 @@ class App extends React.Component {
 
   getValue(ev) {
     const value = parseInt(ev.target.value);
-    this.getData(value);
-  }
+    this.setState({
+      id: value
+    },
+      () => {
+        this.getData(this.state.id);
+      }
+    );
+  };
 
   changeColorSelected(ev) {
     const selected = ev.currentTarget
@@ -120,7 +126,7 @@ class App extends React.Component {
 
     return (
       <div className="employees-container">
-        <input type="text" onChange={this.getValue}></input>
+        <input type="text" onChange={this.getValue} value={parseInt(this.state.id)}></input>
 
         <div className="App flex" id="initechOrgChart">
           {parents}
