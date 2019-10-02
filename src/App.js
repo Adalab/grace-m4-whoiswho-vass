@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import OrgChart from "react-orgchart";
 import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
@@ -74,11 +74,11 @@ class App extends React.Component {
   }
 
   changeColorSelected(ev) {
-    const selected = ev.currentTarget
-    selected.classList.toggle("shadow")
+    const selected = ev.currentTarget;
+    selected.classList.toggle("employee__shadow");
   }
   consolea(ev) {
-    this.changeColorSelected(ev)
+    this.changeColorSelected(ev);
     console.log(ev.currentTarget.dataset.id);
   }
 
@@ -86,22 +86,22 @@ class App extends React.Component {
     console.log(this.state.parent);
     const MyNodeComponent = ({ node }) => {
       return (
-        <div className="perfil">
-          <div className="initechNode" onClick={this.changeColorSelected}>
-            <img src={node.foto_empleado} className="img" alt={node.nombre_empleado}></img>
+        <div className="employee">
+          <div className="employee__img--container" onClick={this.changeColorSelected}>
+            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
           </div>
-          <p className="name">{node.nombre_empleado}</p>
+          <p className="employee__name">{node.nombre_empleado}</p>
         </div>
       );
     };
 
     const MyNodeComponentChildren = ({ node }) => {
       return (
-        <div className="children">
-          <div className="initechNode" onClick={this.consolea} data-id={node.id}>
-            <img src={node.foto_empleado} className="img" alt={node.nombre_empleado}></img>
+        <div className="employee__children">
+          <div className="employee__img--container" onClick={this.consolea} data-id={node.id}>
+            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
           </div>
-          <p className="name">{node.nombre_empleado}</p>
+          <p className="employee__name">{node.nombre_empleado}</p>
         </div>
       );
     };
@@ -110,23 +110,23 @@ class App extends React.Component {
     const parents = this.state.parent.map(parent => {
       return (
         <React.Fragment>
-          <div className="center-parents">
+          <div className="employee__parent--center">
             <OrgChart tree={parent} NodeComponent={MyNodeComponent} />
           </div>
-          <div className="rayita"></div>
+          <div className="employee__parent--branch"></div>
         </React.Fragment>
       );
     });
 
     return (
-      <div className="employees-container">
+      <div className="employees__container">
         <input type="text" onChange={this.getValue}></input>
 
-        <div className="App flex" id="initechOrgChart">
+        <div className="employee__parents--container" id="initechOrgChart">
           {parents}
         </div>
 
-        <div className="App" id="initechOrgChart">
+        <div className="employee__childrens--container" id="initechOrgChart">
           <OrgChart tree={this.state} NodeComponent={MyNodeComponentChildren} />
         </div>
       </div>
