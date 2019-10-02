@@ -23,7 +23,7 @@ class App extends React.Component {
     this.changeColorSelected = this.changeColorSelected.bind(this);
     this.getAllData();
   }
-
+  componentDidMount() {}
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -146,8 +146,6 @@ class App extends React.Component {
 
   render() {
     const getClass = id => {
-      console.log(id);
-
       if (id === this.state.id) {
         return "color";
       }
@@ -173,7 +171,7 @@ class App extends React.Component {
 
     const MyNodeComponentChildren = ({ node }) => {
       return (
-        <div className={`employee__children ${getClass(node.id_empleado)}`}>
+        <div className={`employee__children ${getClass(node.id)}`}>
           <div
             className="employee__img--container"
             onClick={this.consolea}
