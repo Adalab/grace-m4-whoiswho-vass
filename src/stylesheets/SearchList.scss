@@ -1,0 +1,32 @@
+.employee {
+  &__list {
+    list-style: none;
+    padding: 10px;
+    border: 1px rgb(198, 197, 197) solid;
+    display: block;
+    margin-top: 0;
+    border-top: 0;
+    &--item {
+      color: rgb(104, 101, 101);
+      font-size: 14px;
+    }
+    &--item:hover {
+      color: black;
+    }
+  }
+  &__searcher {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    margin: 10px;
+    position: absolute;
+  }
+  &__input {
+    padding-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.hidden {
+  display: none;
+}
