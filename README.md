@@ -16,10 +16,10 @@ This is an autonomous component created for use within the corporate app of the 
 
 ## Developed with
 
-ReactJS
-ReactJS [Org Chart](https://www.npmjs.com/package/react-orgchart) 
-JavaScript
-SASS
+- ReactJS
+- ReactJS [Org Chart](https://www.npmjs.com/package/react-orgchart) 
+- JavaScript
+- SASS
 
 ## Adalab Team
 
