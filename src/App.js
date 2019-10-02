@@ -3,6 +3,7 @@ import "./App.scss";
 import OrgChart from "react-orgchart";
 import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
+import SearchList from "./components/SearchList";
 
 let allEmployees = [];
 class App extends React.Component {
@@ -13,7 +14,8 @@ class App extends React.Component {
       id: "",
       foto_empleado: foto,
       children: [],
-      parent: []
+      parent: [],
+      queryInput: ""
     };
     this.getData2 = this.getData2.bind(this);
     this.getParent = this.getParent.bind(this);
@@ -98,6 +100,10 @@ class App extends React.Component {
   }
 
   getValue(ev) {
+    const inputValue = ev.target.value;
+    this.setState({
+      queryInput: inputValue
+    });
     const value = parseInt(ev.target.value);
     if (isNaN(value)) {
       this.setState({
@@ -174,7 +180,13 @@ class App extends React.Component {
 
     return (
       <div className="employees__container">
-        <input type="text" onChange={this.getValue}></input>
+        <SearchList
+          consolea={this.consolea}
+          queryInput={this.state.queryInput}
+          getValue={this.getValue}
+          allEmployees={allEmployees}
+        />
+
         <section className="section">
           <div className="employee__parents--container" id="initechOrgChart">
             {parents}
