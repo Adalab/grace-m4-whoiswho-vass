@@ -31,9 +31,12 @@ class App extends React.Component {
           let childrens = allEmployees.filter(
             employee => employee.id_superior === this.state.id
           );
-          this.setState({
-            children: childrens
-          });
+          console.log(childrens);
+          if (childrens !== []) {
+            this.setState({
+              children: childrens
+            });
+          }
         }
       });
   }
@@ -127,13 +130,13 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.children);
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="employee">
           <div
             className="employee__img--container"
-            onClick={this.changeColorSelected}
+            onClick={this.consolea}
+            data-id={node.id}
           >
             <img
               src={node.foto_empleado}
