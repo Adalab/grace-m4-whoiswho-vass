@@ -55,12 +55,12 @@ body {
   }
 }
 
-td[colspan][colspan="0"] .employee__children {
-  width: 300px;
-  margin: auto;
-  background-color: blueviolet;
-  margin-left: 625px;
-}
+// td[colspan][colspan="0"] .employee__children {
+//   width: 300px;
+//   margin: auto;
+//   background-color: blueviolet;
+//   margin-left: 625px;
+// }
 
 #initechOrgChart .orgNodeChildGroup .nodeGroupLineVerticalMiddle {
   border-right: solid 3px grey;
@@ -80,3 +80,11 @@ td[colspan][colspan="0"] .employee__children {
 /* .nodeGroupCell .employee__children {
   margin-left: 55px;
 } */
+
+.orgNodeChildGroup .nodeCell {
+  background-color: red;
+}
+
+.reactOrgChart table td.nodeCell .color {
+  background-color: green;
+}
