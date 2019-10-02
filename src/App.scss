@@ -8,6 +8,9 @@ body {
   width: 300px;
   flex-direction: row;
   align-items: center;
+  & p {
+    color: grey;
+  }
   &__name {
     margin-left: 10px;
   }
@@ -82,9 +85,25 @@ body {
 } */
 
 .orgNodeChildGroup .nodeCell {
-  background-color: red;
 }
 
 .reactOrgChart table td.nodeCell .color {
-  background-color: green;
+  width: 300px;
+  position: relative;
+  left: 20%;
+
+  @media all and (min-width: 768px) {
+    left: 275px;
+  }
+
+  & div {
+    border-color: black;
+  }
+  & p {
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+}
+
+.section {
 }

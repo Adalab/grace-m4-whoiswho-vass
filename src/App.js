@@ -15,15 +15,15 @@ class App extends React.Component {
       children: [],
       parent: []
     };
-    this.getData = this.getData.bind(this);
+    this.getData2 = this.getData2.bind(this);
+    this.getParent = this.getParent.bind(this);
     this.getAllData = this.getAllData.bind(this);
     this.compareData = this.compareData.bind(this);
     this.getValue = this.getValue.bind(this);
     this.consolea = this.consolea.bind(this);
-    this.changeColorSelected = this.changeColorSelected.bind(this);
     this.getAllData();
   }
-  componentDidMount() {}
+
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -37,7 +37,6 @@ class App extends React.Component {
       let childrens = allEmployees.filter(
         employee => employee.id_superior === this.state.id
       );
-      console.log(childrens);
       if (childrens !== []) {
         this.setState({
           children: childrens
@@ -46,7 +45,32 @@ class App extends React.Component {
     }
   }
 
-  getData(id) {
+  getParent(data) {
+    fetch(
+      `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
+    )
+      .then(response => response.json())
+      .then(data => {
+        const spread = [
+          {
+            nombre_empleado:
+              `${data.nombre_empleado ? data.nombre_empleado : ""}` +
+              ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+            id: data.id_empleado,
+            foto_empleado: foto
+          },
+          ...this.state.parent
+        ];
+        this.setState({
+          parent: spread
+        });
+        if (data.id_superior !== "") {
+          return this.getParent(data);
+        }
+      });
+  }
+
+  getData2(id) {
     if (!isNaN(id)) {
       fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
         .then(response => response.json())
@@ -62,54 +86,8 @@ class App extends React.Component {
               this.compareData();
             }
           );
-
-          if (data.id_superior !== "") {
-            return fetch(
-              `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
-            )
-              .then(response => response.json())
-              .then(data => {
-                this.setState({
-                  parent: [
-                    {
-                      nombre_empleado:
-                        `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-                        ` ${
-                          data.apellidos_empleado ? data.apellidos_empleado : ""
-                        } `,
-                      id: data.id_empleado,
-                      foto_empleado: foto
-                    }
-                  ]
-                });
-                if (data.id_superior !== "") {
-                  return fetch(
-                    `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
-                  )
-                    .then(response => response.json())
-                    .then(data => {
-                      const spread = [
-                        {
-                          nombre_empleado:
-                            `${
-                              data.nombre_empleado ? data.nombre_empleado : ""
-                            }` +
-                            ` ${
-                              data.apellidos_empleado
-                                ? data.apellidos_empleado
-                                : ""
-                            } `,
-                          id: data.id_empleado,
-                          foto_empleado: foto
-                        },
-                        ...this.state.parent
-                      ];
-                      this.setState({
-                        parent: spread
-                      });
-                    });
-                }
-              });
+          if (data.id_superior !== "" && id > 0 && id < allEmployees.length) {
+            return this.getParent(data);
           } else {
             this.setState({
               parent: []
@@ -130,16 +108,11 @@ class App extends React.Component {
         parent: []
       });
     } else {
-      this.getData(value);
+      this.getData2(value);
     }
   }
 
-  changeColorSelected(ev) {
-    const selected = ev.currentTarget;
-    selected.classList.toggle("employee__shadow");
-  }
   consolea(ev) {
-    this.changeColorSelected(ev);
     let idSelected = ev.currentTarget.dataset.id;
     this.getData(idSelected);
   }
@@ -202,14 +175,18 @@ class App extends React.Component {
     return (
       <div className="employees__container">
         <input type="text" onChange={this.getValue}></input>
+        <section className="section">
+          <div className="employee__parents--container" id="initechOrgChart">
+            {parents}
+          </div>
 
-        <div className="employee__parents--container" id="initechOrgChart">
-          {parents}
-        </div>
-
-        <div className="employee__childrens--container" id="initechOrgChart">
-          <OrgChart tree={this.state} NodeComponent={MyNodeComponentChildren} />
-        </div>
+          <div className="employee__childrens--container" id="initechOrgChart">
+            <OrgChart
+              tree={this.state}
+              NodeComponent={MyNodeComponentChildren}
+            />
+          </div>
+        </section>
       </div>
     );
   }
