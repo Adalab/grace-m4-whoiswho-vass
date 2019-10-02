@@ -79,3 +79,7 @@ td[colspan][colspan="0"] .children {
   background-color: blueviolet;
   margin-left: 625px;
 }
+
+.shadow{
+  box-shadow: 5px 10px #888888;
+}
