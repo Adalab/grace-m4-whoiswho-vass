@@ -4,6 +4,7 @@ import OrgChart from "react-orgchart";
 import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
 
+let allEmployees = [];
 class App extends React.Component {
   constructor() {
     super();
@@ -15,9 +16,29 @@ class App extends React.Component {
       parent: []
     };
     this.getData = this.getData.bind(this);
+    this.getAllData = this.getAllData.bind(this);
     this.getValue = this.getValue.bind(this);
     this.consolea = this.consolea.bind(this);
     this.changeColorSelected = this.changeColorSelected.bind(this);
+  }
+
+  getAllData() {
+    fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
+      .then(response => response.json())
+      .then(data => {
+        allEmployees = data;
+        if (this.state.id !== "") {
+          let childrens = allEmployees.filter(
+            employee => employee.id_superior === this.state.id
+          );
+          console.log(childrens);
+          if (childrens !== []) {
+            this.setState({
+              children: childrens
+            });
+          }
+        }
+      });
   }
 
   getData(id) {
@@ -25,33 +46,48 @@ class App extends React.Component {
       fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           this.setState({
-            nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+            nombre_empleado:
+              `${data.nombre_empleado ? data.nombre_empleado : ""}` +
+              ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado
           });
           if (data.id_superior !== "") {
-            return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
+            return fetch(
+              `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
+            )
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 this.setState({
                   parent: [
                     {
-                      nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+                      nombre_empleado:
+                        `${data.nombre_empleado ? data.nombre_empleado : ""}` +
+                        ` ${
+                          data.apellidos_empleado ? data.apellidos_empleado : ""
+                        } `,
                       id: data.id_empleado,
                       foto_empleado: foto
                     }
                   ]
                 });
                 if (data.id_superior !== "") {
-                  return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
+                  return fetch(
+                    `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
+                  )
                     .then(response => response.json())
                     .then(data => {
-                      console.log(data);
                       const spread = [
                         {
-                          nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+                          nombre_empleado:
+                            `${
+                              data.nombre_empleado ? data.nombre_empleado : ""
+                            }` +
+                            ` ${
+                              data.apellidos_empleado
+                                ? data.apellidos_empleado
+                                : ""
+                            } `,
                           id: data.id_empleado,
                           foto_empleado: foto
                         },
@@ -70,7 +106,18 @@ class App extends React.Component {
 
   getValue(ev) {
     const value = parseInt(ev.target.value);
-    this.getData(value);
+    if (isNaN(value)) {
+      this.setState({
+        nombre_empleado: "",
+        id: "",
+        foto_empleado: foto,
+        children: [],
+        parent: []
+      });
+    } else {
+      this.getData(value);
+    }
+    this.getAllData();
   }
 
   changeColorSelected(ev) {
@@ -83,12 +130,19 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.parent);
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="employee">
-          <div className="employee__img--container" onClick={this.changeColorSelected}>
-            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
+          <div
+            className="employee__img--container"
+            onClick={this.consolea}
+            data-id={node.id}
+          >
+            <img
+              src={node.foto_empleado}
+              className="employee__img"
+              alt={node.nombre_empleado}
+            ></img>
           </div>
           <p className="employee__name">{node.nombre_empleado}</p>
         </div>
@@ -98,8 +152,16 @@ class App extends React.Component {
     const MyNodeComponentChildren = ({ node }) => {
       return (
         <div className="employee__children">
-          <div className="employee__img--container" onClick={this.consolea} data-id={node.id}>
-            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
+          <div
+            className="employee__img--container"
+            onClick={this.consolea}
+            data-id={node.id}
+          >
+            <img
+              src={node.foto_empleado}
+              className="employee__img"
+              alt={node.nombre_empleado}
+            ></img>
           </div>
           <p className="employee__name">{node.nombre_empleado}</p>
         </div>
@@ -120,7 +182,11 @@ class App extends React.Component {
 
     return (
       <div className="employees__container">
-        <input type="text" onChange={this.getValue}></input>
+        <input
+          type="text"
+          onChange={this.getValue}
+          value={this.state.id}
+        ></input>
 
         <div className="employee__parents--container" id="initechOrgChart">
           {parents}
