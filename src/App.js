@@ -4,6 +4,7 @@ import OrgChart from "react-orgchart";
 import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
 
+let allEmployees = [];
 class App extends React.Component {
   constructor() {
     super();
@@ -22,10 +23,18 @@ class App extends React.Component {
   }
 
   getAllData() {
-    fetch("https://adalab-whoiswho.azurewebsites.net/api/employees")
+    fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        allEmployees = data;
+        if (this.state.id !== "") {
+          let childrens = allEmployees.filter(
+            employee => employee.id_superior === this.state.id
+          );
+          this.setState({
+            children: childrens
+          });
+        }
       });
   }
 
@@ -34,7 +43,6 @@ class App extends React.Component {
       fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           this.setState({
             nombre_empleado:
               `${data.nombre_empleado ? data.nombre_empleado : ""}` +
@@ -47,7 +55,6 @@ class App extends React.Component {
             )
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 this.setState({
                   parent: [
                     {
@@ -67,7 +74,6 @@ class App extends React.Component {
                   )
                     .then(response => response.json())
                     .then(data => {
-                      console.log(data);
                       const spread = [
                         {
                           nombre_empleado:
@@ -97,7 +103,18 @@ class App extends React.Component {
 
   getValue(ev) {
     const value = parseInt(ev.target.value);
-    this.getData(value);
+    if (isNaN(value)) {
+      this.setState({
+        nombre_empleado: "",
+        id: "",
+        foto_empleado: foto,
+        children: [],
+        parent: []
+      });
+    } else {
+      this.getData(value);
+    }
+    this.getAllData();
   }
 
   changeColorSelected(ev) {
@@ -106,11 +123,10 @@ class App extends React.Component {
   }
   consolea(ev) {
     this.changeColorSelected(ev);
-    console.log(ev.currentTarget.dataset.id);
   }
 
   render() {
-    console.log(this.state.parent);
+    console.log(this.state.children);
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="perfil">
@@ -159,7 +175,11 @@ class App extends React.Component {
 
     return (
       <div className="employees-container">
-        <input type="text" onChange={this.getValue}></input>
+        <input
+          type="text"
+          onChange={this.getValue}
+          value={this.state.id}
+        ></input>
 
         <div className="App flex" id="initechOrgChart">
           {parents}
