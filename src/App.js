@@ -25,7 +25,7 @@ class App extends React.Component {
     this.changeColorSelected = this.changeColorSelected.bind(this);
     this.getAllData();
   }
-  componentDidMount() {}
+  componentDidMount() { }
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
