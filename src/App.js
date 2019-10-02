@@ -23,7 +23,6 @@ class App extends React.Component {
     fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({
           nombre_empleado: data.nombre_empleado + data.apellidos_empleado,
           id: data.id_empleado
@@ -31,7 +30,6 @@ class App extends React.Component {
         return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             this.setState({
               parent: [
                 {
@@ -39,13 +37,17 @@ class App extends React.Component {
                   id: data.id_empleado,
                   foto_empleado: foto
                 }
+              ],
+              children: [
+                {
+                  id_superior: data.id_superior
+                }
               ]
             });
             if (data.id_superior !== "") {
               return fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
                 .then(response => response.json())
                 .then(data => {
-                  console.log(data);
                   const spread = [
                     {
                       nombre_empleado: data.nombre_empleado + data.apellidos_empleado,
@@ -73,7 +75,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.parent);
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="perfil">
@@ -96,7 +97,7 @@ class App extends React.Component {
       );
     };
 
-    const parentsState = this.state.parent;
+    // const parentsState = this.state.parent;
     const parents = this.state.parent.map(parent => {
       return (
         <React.Fragment>
