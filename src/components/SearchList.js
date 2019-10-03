@@ -28,7 +28,7 @@ const SearchList = props => {
   return (
     <div className="employee__searcher">
       <input placeholder="Id o Nombre del Colaborador" className="employee__input" type="text" onChange={props.getValue} value={props.queryInput}></input>
-      <ul className={addClass(props)}> {printList(props)} </ul>
+      <ul className={`${addClass(props)} ${props.classHidden}`}> {printList(props)} </ul>
     </div>
   );
 };

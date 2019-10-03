@@ -5,6 +5,7 @@ import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
 import SearchList from "./components/SearchList";
 
+let classHidden = "";
 let allEmployees = [];
 class App extends React.Component {
   constructor() {
@@ -105,6 +106,7 @@ class App extends React.Component {
   }
 
   getValue(ev) {
+    classHidden = "";
     const inputValue = ev.target.value;
     this.setState({
       queryInput: inputValue
@@ -124,6 +126,7 @@ class App extends React.Component {
   }
 
   consolea(ev) {
+    classHidden = "hidden";
     let idSelected = ev.currentTarget.dataset.id;
     this.getData2(idSelected);
   }
@@ -205,6 +208,7 @@ class App extends React.Component {
     return (
       <div className="employees__container">
         <SearchList
+          classHidden={classHidden}
           consolea={this.consolea}
           queryInput={this.state.queryInput}
           getValue={this.getValue}
