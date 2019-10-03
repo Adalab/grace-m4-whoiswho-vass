@@ -59,7 +59,7 @@ class App extends React.Component {
               `${data.nombre_empleado ? data.nombre_empleado : ""}` +
               ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado,
-            foto_empleado: foto
+            foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
           },
           ...this.state.parent
         ];
@@ -73,6 +73,9 @@ class App extends React.Component {
   }
 
   getData2(id) {
+    this.setState({
+      parent: []
+    });
     if (!isNaN(id)) {
       fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
         .then(response => response.json())
@@ -82,7 +85,9 @@ class App extends React.Component {
               nombre_empleado:
                 `${data.nombre_empleado ? data.nombre_empleado : ""}` +
                 ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
-              id: data.id_empleado
+              id: data.id_empleado,
+              foto_empleado:
+                data.foto_empleado !== "" ? data.foto_empleado : foto
             },
             () => {
               this.compareData();
@@ -162,7 +167,9 @@ class App extends React.Component {
               alt={node.nombre_empleado}
             ></img>
           </div>
-          <p className="employee__name">{node.nombre_empleado}</p>
+          <p className="employee__name">
+            {node.nombre_empleado} {node.apellidos_empleado}
+          </p>
         </div>
       );
     };
