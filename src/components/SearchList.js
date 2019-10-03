@@ -13,7 +13,6 @@ function printList(props) {
           </li>
         );
       });
-  } else {
   }
 }
 

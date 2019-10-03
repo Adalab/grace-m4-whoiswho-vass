@@ -100,10 +100,13 @@ body {
     border-color: black;
   }
   & p {
-    text-decoration: underline;
-    text-transform: uppercase;
-  }
+    font-size: 19px;
+    background-color: gainsboro;
+    padding: 9px;
+    border-radius: 20px;
 }
+  }
+
 
 .section {
 }
