@@ -221,13 +221,10 @@ class App extends React.Component {
               tree={this.state}
               NodeComponent={MyNodeComponentChildren}
             />
-<<<<<<< HEAD
-=======
           </div>
 
           <div className="employee__childrens--container" id="initechOrgChart">
             {childrens}
->>>>>>> master
           </div>
         </section>
       </div>
