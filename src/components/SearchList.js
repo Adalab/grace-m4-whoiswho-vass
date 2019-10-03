@@ -17,12 +17,19 @@ function printList(props) {
   }
 }
 
+function addClass(props) {
+  if (props.queryInput === "" || !isNaN(props.queryInput)) {
+    return "hidden"
+  } else {
+    return "employee__list"
+  }
+}
+
 const SearchList = props => {
-  const classList = props.queryInput !== "" ? "employee__list" : "hidden";
   return (
     <div className="employee__searcher">
-      <input placeholder="Nombre del colaborador" className="employee__input" type="text" onChange={props.getValue} value={props.queryInput}></input>
-      <ul className={`${classList}`}> {printList(props)} </ul>
+      <input placeholder="Id o Nombre del Colaborador" className="employee__input" type="text" onChange={props.getValue} value={props.queryInput}></input>
+      <ul className={addClass(props)}> {printList(props)} </ul>
     </div>
   );
 };

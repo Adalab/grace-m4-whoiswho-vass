@@ -25,7 +25,7 @@ class App extends React.Component {
     this.consolea = this.consolea.bind(this);
     this.getAllData();
   }
-  componentDidMount() {}
+  componentDidMount() { }
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -46,6 +46,7 @@ class App extends React.Component {
   }
 
   getParent(data) {
+    console.log(data)
     fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
       .then(response => response.json())
       .then(data => {
@@ -53,7 +54,7 @@ class App extends React.Component {
           {
             nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado,
-            foto_empleado: foto
+            foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
           },
           ...this.state.parent
         ];
@@ -74,7 +75,8 @@ class App extends React.Component {
           this.setState(
             {
               nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
-              id: data.id_empleado
+              id: data.id_empleado,
+              foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
             },
             () => {
               this.compareData();
@@ -138,7 +140,7 @@ class App extends React.Component {
           <div className="employee__img--container" onClick={this.consolea} data-id={node.id_empleado}>
             <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
           </div>
-          <p className="employee__name">{node.nombre_empleado}</p>
+          <p className="employee__name">{node.nombre_empleado} {node.apellidos_empleado}</p>
         </div>
       );
     };
