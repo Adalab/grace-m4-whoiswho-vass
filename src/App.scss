@@ -1,8 +1,10 @@
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Rubik", Helvetica, sans-serif;
   font-weight: 600;
 }
-
+.section {
+  padding-top: 70px;
+}
 .employee {
   display: flex;
   width: 350px;
@@ -18,12 +20,23 @@ body {
     width: 100%;
     border-radius: 50%;
     &--container {
-      border: solid 3px rgb(191, 191, 191);
+      border: solid 2px rgb(191, 191, 191);
       border-radius: 48%;
-      padding: 5px;
-      height: 100px;
-      width: 100px;
+      padding: 3px;
+      height: 70px;
+      width: 70px;
       display: inline-block;
+      @media all and (min-width: 768px) {
+        padding: 4px;
+        height: 85px;
+        width: 85px;
+      }
+      @media all and (min-width: 1200px) {
+        border: solid 3px;
+        padding: 5px;
+        height: 100px;
+        width: 100px;
+      }
     }
   }
   &__shadow {
@@ -51,11 +64,49 @@ body {
       margin-left: 180px;
     }
   }
+
+  &__childrens--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__children {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &--branch {
+      width: 30px;
+      height: 3px;
+      background-color: grey;
+      margin-top: -2px;
+      margin-bottom: -2px;
+    }
+    &--branchppal {
+      width: 3px;
+      height: 150px;
+      background-color: grey;
+      margin-top: -60px;
+      margin-bottom: -60px;
+    }
+    &--center {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 300px;
+      margin-left: -2px;
+    }
   }
+}
+
+.children-div {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: -52px;
 }
 
 // td[colspan][colspan="0"] .employee__children {
@@ -90,21 +141,17 @@ body {
 .reactOrgChart table td.nodeCell .color {
   width: 400px;
   position: relative;
-  left: 20%;
+  left: 35%;
+  margin-bottom: 58px;
 
   @media all and (min-width: 768px) {
-    left: 275px;
+    left: 142px;
+    margin-bottom: 58px;
   }
 
   & div {
     border-color: black;
   }
-  & p {
-    font-size: 19px;
-    background-color: gainsboro;
-    padding: 9px;
-    border-radius: 20px;
-}
   }
 
 
