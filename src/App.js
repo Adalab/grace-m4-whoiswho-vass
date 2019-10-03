@@ -25,7 +25,7 @@ class App extends React.Component {
     this.consolea = this.consolea.bind(this);
     this.getAllData();
   }
-  componentDidMount() { }
+  componentDidMount() {}
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -48,14 +48,9 @@ class App extends React.Component {
   }
 
   getParent(data) {
-<<<<<<< HEAD
     fetch(
       `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
     )
-=======
-    console.log(data)
-    fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
->>>>>>> master
       .then(response => response.json())
       .then(data => {
         const spread = [
@@ -87,16 +82,12 @@ class App extends React.Component {
         .then(data => {
           this.setState(
             {
-<<<<<<< HEAD
               nombre_empleado:
                 `${data.nombre_empleado ? data.nombre_empleado : ""}` +
                 ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
-              id: data.id_empleado
-=======
-              nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
               id: data.id_empleado,
-              foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
->>>>>>> master
+              foto_empleado:
+                data.foto_empleado !== "" ? data.foto_empleado : foto
             },
             () => {
               this.compareData();
@@ -176,7 +167,9 @@ class App extends React.Component {
               alt={node.nombre_empleado}
             ></img>
           </div>
-          <p className="employee__name">{node.nombre_empleado} {node.apellidos_empleado}</p>
+          <p className="employee__name">
+            {node.nombre_empleado} {node.apellidos_empleado}
+          </p>
         </div>
       );
     };
