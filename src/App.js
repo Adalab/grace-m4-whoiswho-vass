@@ -5,6 +5,7 @@ import "react-orgchart/index.css";
 import foto from "./perfil-defecto.png";
 import SearchList from "./components/SearchList";
 
+let classHidden = "";
 let allEmployees = [];
 class App extends React.Component {
   constructor() {
@@ -25,7 +26,7 @@ class App extends React.Component {
     this.consolea = this.consolea.bind(this);
     this.getAllData();
   }
-  componentDidMount() {}
+  componentDidMount() { }
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -56,8 +57,7 @@ class App extends React.Component {
         const spread = [
           {
             nombre_empleado:
-              `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-              ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+              `${data.nombre_empleado ? data.nombre_empleado : ""} ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado,
             foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
           },
@@ -83,8 +83,7 @@ class App extends React.Component {
           this.setState(
             {
               nombre_empleado:
-                `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-                ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+                `${data.nombre_empleado ? data.nombre_empleado : ""} ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
               id: data.id_empleado,
               foto_empleado:
                 data.foto_empleado !== "" ? data.foto_empleado : foto
@@ -105,6 +104,7 @@ class App extends React.Component {
   }
 
   getValue(ev) {
+    classHidden = "";
     const inputValue = ev.target.value;
     this.setState({
       queryInput: inputValue
@@ -124,6 +124,7 @@ class App extends React.Component {
   }
 
   consolea(ev) {
+    classHidden = "hidden";
     let idSelected = ev.currentTarget.dataset.id;
     this.getData2(idSelected);
   }
@@ -162,7 +163,7 @@ class App extends React.Component {
             data-id={node.id_empleado}
           >
             <img
-              src={node.foto_empleado}
+              src={node.foto_empleado !== "" ? node.foto_empleado : foto}
               className="employee__img"
               alt={node.nombre_empleado}
             ></img>
@@ -174,9 +175,9 @@ class App extends React.Component {
       );
     };
 
-    const parents = this.state.parent.map(parent => {
+    const parents = this.state.parent.map((parent, index) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={index}>
           <div className="employee__parent--center">
             <OrgChart tree={parent} NodeComponent={MyNodeComponent} />
           </div>
@@ -185,9 +186,9 @@ class App extends React.Component {
       );
     });
 
-    const childrens = this.state.childrens.map(children => {
+    const childrens = this.state.childrens.map((children, index) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={index}>
           <div className="employee__children--branchppal"></div>
           <div className="children-div">
             <div className="employee__children--branch"></div>
@@ -205,6 +206,7 @@ class App extends React.Component {
     return (
       <div className="employees__container">
         <SearchList
+          classHidden={classHidden}
           consolea={this.consolea}
           queryInput={this.state.queryInput}
           getValue={this.getValue}
