@@ -13,7 +13,7 @@ class App extends React.Component {
       nombre_empleado: "",
       id: "",
       foto_empleado: foto,
-      children: [],
+      childrens: [],
       parent: [],
       queryInput: ""
     };
@@ -41,7 +41,7 @@ class App extends React.Component {
       );
       if (childrens !== []) {
         this.setState({
-          children: childrens
+          childrens: childrens
         });
       }
     }
@@ -115,7 +115,7 @@ class App extends React.Component {
         nombre_empleado: "",
         id: "",
         foto_empleado: foto,
-        children: [],
+        childrens: [],
         parent: []
       });
     } else {
@@ -185,6 +185,23 @@ class App extends React.Component {
       );
     });
 
+    const childrens = this.state.childrens.map(children => {
+      return (
+        <React.Fragment>
+          <div className="employee__children--branchppal"></div>
+          <div className="children-div">
+            <div className="employee__children--branch"></div>
+            <div className="employee__children--center">
+              <OrgChart
+                tree={children}
+                NodeComponent={MyNodeComponentChildren}
+              />
+            </div>
+          </div>
+        </React.Fragment>
+      );
+    });
+
     return (
       <div className="employees__container">
         <SearchList
@@ -204,6 +221,13 @@ class App extends React.Component {
               tree={this.state}
               NodeComponent={MyNodeComponentChildren}
             />
+<<<<<<< HEAD
+=======
+          </div>
+
+          <div className="employee__childrens--container" id="initechOrgChart">
+            {childrens}
+>>>>>>> master
           </div>
         </section>
       </div>
