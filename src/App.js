@@ -154,24 +154,27 @@ class App extends React.Component {
     };
 
     const MyNodeComponentChildren = ({ node }) => {
-      return (
-        <div className={`employee__children ${getClass(node.id)}`}>
-          <div
-            className="employee__img--container"
-            onClick={this.consolea}
-            data-id={node.id_empleado}
-          >
-            <img
-              src={node.foto_empleado !== "" ? node.foto_empleado : foto}
-              className="employee__img"
-              alt={node.nombre_empleado}
-            ></img>
+      if (this.state.nombre_empleado !== "") {
+        return (
+          <div className={`employee__children ${getClass(node.id)}`}>
+            <div
+              className="employee__img--container"
+              onClick={this.consolea}
+              data-id={node.id_empleado}
+            >
+              <img
+                src={node.foto_empleado !== "" ? node.foto_empleado : foto}
+                className="employee__img"
+                alt={node.nombre_empleado}
+              ></img>
+            </div>
+            <p className="employee__name">
+              {node.nombre_empleado} {node.apellidos_empleado}
+            </p>
           </div>
-          <p className="employee__name">
-            {node.nombre_empleado} {node.apellidos_empleado}
-          </p>
-        </div>
-      );
+        );
+      }
+
     };
 
     const parents = this.state.parent.map(parent => {
