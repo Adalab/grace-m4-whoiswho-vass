@@ -25,7 +25,7 @@ class App extends React.Component {
     this.consolea = this.consolea.bind(this);
     this.getAllData();
   }
-
+  componentDidMount() {}
   getAllData() {
     fetch("https://adalab-whoiswho.azurewebsites.net/api/employees/")
       .then(response => response.json())
@@ -36,9 +36,7 @@ class App extends React.Component {
 
   compareData() {
     if (this.state.id !== "") {
-      let childrens = allEmployees.filter(
-        employee => employee.id_superior === this.state.id
-      );
+      let childrens = allEmployees.filter(employee => employee.id_superior === this.state.id);
       if (childrens !== []) {
         this.setState({
           children: childrens
@@ -48,16 +46,12 @@ class App extends React.Component {
   }
 
   getParent(data) {
-    fetch(
-      `https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`
-    )
+    fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${data.id_superior}`)
       .then(response => response.json())
       .then(data => {
         const spread = [
           {
-            nombre_empleado:
-              `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-              ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+            nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado,
             foto_empleado: foto
           },
@@ -82,9 +76,7 @@ class App extends React.Component {
         .then(data => {
           this.setState(
             {
-              nombre_empleado:
-                `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-                ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+              nombre_empleado: `${data.nombre_empleado ? data.nombre_empleado : ""}` + ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
               id: data.id_empleado
             },
             () => {
@@ -135,16 +127,8 @@ class App extends React.Component {
     const MyNodeComponent = ({ node }) => {
       return (
         <div className="employee">
-          <div
-            className="employee__img--container"
-            onClick={this.consolea}
-            data-id={node.id}
-          >
-            <img
-              src={node.foto_empleado}
-              className="employee__img"
-              alt={node.nombre_empleado}
-            ></img>
+          <div className="employee__img--container" onClick={this.consolea} data-id={node.id}>
+            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
           </div>
           <p className="employee__name">{node.nombre_empleado}</p>
         </div>
@@ -154,16 +138,8 @@ class App extends React.Component {
     const MyNodeComponentChildren = ({ node }) => {
       return (
         <div className={`employee__children ${getClass(node.id)}`}>
-          <div
-            className="employee__img--container"
-            onClick={this.consolea}
-            data-id={node.id_empleado}
-          >
-            <img
-              src={node.foto_empleado}
-              className="employee__img"
-              alt={node.nombre_empleado}
-            ></img>
+          <div className="employee__img--container" onClick={this.consolea} data-id={node.id_empleado}>
+            <img src={node.foto_empleado} className="employee__img" alt={node.nombre_empleado}></img>
           </div>
           <p className="employee__name">{node.nombre_empleado}</p>
         </div>
@@ -183,12 +159,7 @@ class App extends React.Component {
 
     return (
       <div className="employees__container">
-        <SearchList
-          consolea={this.consolea}
-          queryInput={this.state.queryInput}
-          getValue={this.getValue}
-          allEmployees={allEmployees}
-        />
+        <SearchList consolea={this.consolea} queryInput={this.state.queryInput} getValue={this.getValue} allEmployees={allEmployees} />
 
         <section className="section">
           <div className="employee__parents--container" id="initechOrgChart">
@@ -196,10 +167,7 @@ class App extends React.Component {
           </div>
 
           <div className="employee__childrens--container" id="initechOrgChart">
-            <OrgChart
-              tree={this.state}
-              NodeComponent={MyNodeComponentChildren}
-            />
+            <OrgChart tree={this.state} NodeComponent={MyNodeComponentChildren} />
           </div>
         </section>
       </div>
