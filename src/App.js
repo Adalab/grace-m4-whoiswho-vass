@@ -73,6 +73,9 @@ class App extends React.Component {
   }
 
   getData2(id) {
+    this.setState({
+      parent: []
+    });
     if (!isNaN(id)) {
       fetch(`https://adalab-whoiswho.azurewebsites.net/api/employees/${id}`)
         .then(response => response.json())
