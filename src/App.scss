@@ -51,11 +51,49 @@ body {
       margin-left: 180px;
     }
   }
+
+  &__childrens--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__children {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &--branch {
+      width: 30px;
+      height: 3px;
+      background-color: grey;
+      margin-top: -2px;
+      margin-bottom: -2px;
+    }
+    &--branchppal {
+      width: 3px;
+      height: 150px;
+      background-color: grey;
+      margin-top: -60px;
+      margin-bottom: -60px;
+    }
+    &--center {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 300px;
+      margin-left: -2px;
+    }
   }
+}
+
+.children-div {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: -52px;
 }
 
 // td[colspan][colspan="0"] .employee__children {
@@ -90,10 +128,12 @@ body {
 .reactOrgChart table td.nodeCell .color {
   width: 400px;
   position: relative;
-  left: 20%;
+  left: 35%;
+  margin-bottom: 58px;
 
   @media all and (min-width: 768px) {
-    left: 275px;
+    left: 142px;
+    margin-bottom: 58px;
   }
 
   & div {
