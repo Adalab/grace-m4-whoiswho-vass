@@ -1,36 +1,31 @@
 import React from "react";
 import "../stylesheets/SearchList.scss";
 
-
 function printList(props) {
-
   if (props.queryInput !== "") {
     let employeesFiltered = props.allEmployees.filter(employee => employee.nombre_empleado.toUpperCase().includes(props.queryInput.toUpperCase()));
-    return (
-      employeesFiltered.map((employee, index) => {
-        return (
-          <li key={index} className="employee__list--item" data-id={employee.id_empleado} onClick={props.consolea}>
-            {`${employee.nombre_empleado} ${employee.apellidos_empleado ? employee.apellidos_empleado : ""} `}
-          </li>
-        );
-      }));
+    return employeesFiltered.map((employee, index) => {
+      return (
+        <li key={index} className="employee__list--item" data-id={employee.id_empleado} onClick={props.handleClick}>
+          {`${employee.nombre_empleado} ${employee.apellidos_empleado ? employee.apellidos_empleado : ""} `}
+        </li>
+      );
+    });
   }
 }
 
 function addHiddenClass(props) {
   let employeesArray = props.allEmployees.filter(employee => employee.nombre_empleado.toUpperCase().includes(props.queryInput.toUpperCase()));
   if (employeesArray.length === 0) {
-    return (
-      "hidden"
-    )
+    return "hidden";
   }
 }
 
 function addClass(props) {
   if (props.queryInput === "" || !isNaN(props.queryInput)) {
-    return "hidden"
+    return "hidden";
   } else {
-    return "employee__list"
+    return "employee__list";
   }
 }
 
