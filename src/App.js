@@ -57,8 +57,7 @@ class App extends React.Component {
         const spread = [
           {
             nombre_empleado:
-              `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-              ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+              `${data.nombre_empleado ? data.nombre_empleado : ""} ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
             id: data.id_empleado,
             foto_empleado: data.foto_empleado !== "" ? data.foto_empleado : foto
           },
@@ -84,8 +83,7 @@ class App extends React.Component {
           this.setState(
             {
               nombre_empleado:
-                `${data.nombre_empleado ? data.nombre_empleado : ""}` +
-                ` ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
+                `${data.nombre_empleado ? data.nombre_empleado : ""} ${data.apellidos_empleado ? data.apellidos_empleado : ""} `,
               id: data.id_empleado,
               foto_empleado:
                 data.foto_empleado !== "" ? data.foto_empleado : foto
@@ -177,9 +175,9 @@ class App extends React.Component {
       );
     };
 
-    const parents = this.state.parent.map(parent => {
+    const parents = this.state.parent.map((parent, index) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={index}>
           <div className="employee__parent--center">
             <OrgChart tree={parent} NodeComponent={MyNodeComponent} />
           </div>
@@ -188,9 +186,9 @@ class App extends React.Component {
       );
     });
 
-    const childrens = this.state.childrens.map(children => {
+    const childrens = this.state.childrens.map((children, index) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={index}>
           <div className="employee__children--branchppal"></div>
           <div className="children-div">
             <div className="employee__children--branch"></div>
